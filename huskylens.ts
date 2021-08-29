@@ -133,7 +133,7 @@ enum protocolAlgorithm {
 }
 
 
-//% weight=100  color=#e7660b icon="\uf083"  block="HuskyLens"
+//% weight=26  color=#e7660b icon="\uf083"  block="CUHK-JC-iCar-HuskyLens"
 namespace huskylens {
     let protocolPtr: number[][] = [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]]
     let Protocol_t: number[] = [0, 0, 0, 0, 0, 0]
@@ -1016,7 +1016,7 @@ namespace huskylens {
     
 }
 
-//% color=#009b5b icon="\uf1eb" block="ESP32-C3-M"
+//% color=#009b5b icon="\uf1eb" block="CUHK-JC-iCar-WIFI"
 namespace ESP8266ThingSpeak {
 
     let wifi_connected: boolean = false
@@ -1083,38 +1083,7 @@ namespace ESP8266ThingSpeak {
         basic.pause(100)
     }
     
-    /**
-    * Connect to ThingSpeak and upload data. It would not upload anything if it failed to connect to Wifi or ThingSpeak.
-    */
-    //% block="Upload data to ThingSpeak|URL/IP = %ip|Write API key = %write_api_key|Field 1 = %n1|Field 2 = %n2|Field 3 = %n3|Field 4 = %n4|Field 5 = %n5|Field 6 = %n6|Field 7 = %n7|Field 8 = %n8"
-    //% ip.defl=api.thingspeak.com
-    //% write_api_key.defl=your_write_api_key
-    export function connectThingSpeak(ip: string, write_api_key: string, n1: number, n2: number, n3: number, n4: number, n5: number, n6: number, n7: number, n8: number) {
-        if (wifi_connected && write_api_key != "") {
-            thingspeak_connected = false
-            sendAT("AT+CIPSTART=\"TCP\",\"" + ip + "\",80", 0) // connect to website server
-            thingspeak_connected = waitResponse()
-            basic.pause(100)
-            if (thingspeak_connected) {
-                last_upload_successful = false
-                let str: string = "GET /update?api_key=" + write_api_key + "&field1=" + n1 + "&field2=" + n2 + "&field3=" + n3 + "&field4=" + n4 + "&field5=" + n5 + "&field6=" + n6 + "&field7=" + n7 + "&field8=" + n8
-                sendAT("AT+CIPSEND=" + (str.length + 2))
-                sendAT(str, 0) // upload data
-                last_upload_successful = waitResponse()
-                basic.pause(100)
-            }
-        }
-    }
-
-    /**
-    * Wait between uploads
-    */
-    //% block="Wait %delay ms"
-    //% delay.min=0 delay.defl=5000
-    export function wait(delay: number) {
-        if (delay > 0) basic.pause(delay)
-    }
-    
+      
     /**
     * Configure to AP mode
     */
@@ -1133,14 +1102,6 @@ namespace ESP8266ThingSpeak {
     //% block="Wifi connected ?"
     export function isWifiConnected() {
         return wifi_connected
-    }
-
-    /**
-    * Check if ESP8266 successfully connected to ThingSpeak
-    */
-    //% block="ThingSpeak connected ?"
-    export function isThingSpeakConnected() {
-        return thingspeak_connected
     }
     
     /**
@@ -1169,13 +1130,6 @@ namespace ESP8266ThingSpeak {
         return target_str
     }
         
-    /**
-    * Check if ESP8266 successfully uploaded data to ThingSpeak
-    */
-    //% block="Last data upload successful ?"
-    export function isLastUploadSuccessful() {
-        return last_upload_successful
-    }
-
+  
 }
 
