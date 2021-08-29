@@ -1,6 +1,6 @@
 
 
-//% weight=10 color=#008B00 icon="\uf1eb" block="CUHK-JC-iCar-IR"
+//% weight=10 color=#008B00 icon="\uf1eb" block="CUHK-JC-iCar_IR"
 namespace BitIR {
     
 
